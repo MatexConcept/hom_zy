@@ -7,7 +7,8 @@ const Header = () => {
 
   // CONTRACT DATA
 
-  // const {address, disconnect}
+  const {address, disconnect, connect, useBalance} = useStateContext();
+
   return (
     <>
       <header class="rn-header haeder-default header--sticky">

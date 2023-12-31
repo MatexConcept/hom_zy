@@ -1,4 +1,4 @@
-import Reac, { useEffect, useContext, createContext } from "react";
+import Reac, {useState, useEffect, useContext, createContext } from "react";
 
 import {
   useAddress,
@@ -7,6 +7,9 @@ import {
   useContractWrite,
   useContractRead,
   useContractEvents,
+  useDisconnect,
+  useConnectionStatus,
+  useSigner
 } from "@thirdweb-dev/react";
 
 import { ethers } from "ethers";
@@ -20,16 +23,26 @@ export const StateContextProvider = ({ children }) => {
   );
 
   const address = useAddress();
-
   const connect = useMetamask();
 
-  const realEstate = "Real Estate Dapp";
+
+  //FRONTEND
+
+  const disconnect = useDisconnect();
+  const connectionStatus = useConnectionStatus();
+  const signer = useSigner();
+
+  //STATE VARIABLE
+
+  const [userBalance, setUserBalance] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  
 
   //FUNCTION
 
   //1. listProperty()
 
-  const { mutateAsync: listProperty, isLoading } = useContractWrite(
+  const { mutateAsync: listProperty } = useContractWrite(
     contract,
     "listProperty"
   );
@@ -63,7 +76,7 @@ export const StateContextProvider = ({ children }) => {
   };
  //2. updateProperty()
 
- const { mutateAsync: updateProperty, isLoading: updatePropertyLoading } = useContractWrite(
+ const { mutateAsync: updateProperty,  } = useContractWrite(
     contract,
     "updateProperty"
   );
@@ -99,16 +112,18 @@ export const StateContextProvider = ({ children }) => {
 
   //3. updatePrice
 
-  const { mutateAsync: updatePrice, isLoading: updatePriceLoading } = useContractWrite(
+  const { mutateAsync: updatePrice } = useContractWrite(
     contract,
     "updatePrice"
   );
 
   const updatePriceFunction = async(form) => {
-    const {productId, price} =form;
+    const {productID, price} =form;
 
     try {
-        const data = await updatePrice([address, productId, price]);
+        const data = await updatePrice ({
+          args:[address, productID, ethers.utils.parseEther(price)],
+        })
 
         console.log("Transaction successfully", data)
     } catch (error) {
@@ -117,16 +132,18 @@ export const StateContextProvider = ({ children }) => {
   }
 
   //4. buyProperty()
-  const { mutateAsync: buyProperty, isLoading: buyPropertyLoading } = useContractWrite(
+  const { mutateAsync: buyProperty } = useContractWrite(
     contract,
     "buyProperty"
   );
 
-  const buyPropertyFunction = async(from) =>{
-        const {id} = from;
+  const buyPropertyFunction = async(buying) =>{
+        const {productID, amount} = buying;
         try {
-            const data = await buyProperty({args:[id, address]});
-            console.log("buying successfully", data)
+            const data = await buyProperty({
+            args:[productID, address], 
+            value:ethers.utils.parseEther(amount), });
+            console.log("buying successfully", data);
         } catch (error) {
             console.log("Buying fail", error)
         }
@@ -135,16 +152,16 @@ export const StateContextProvider = ({ children }) => {
   // REVIEWS FUNCTION
     //5. addReview()
 
-    const { mutateAsync: addReview, isLoading: addReviewLoading } = useContractWrite(
+    const { mutateAsync: addReview } = useContractWrite(
         contract,
         "addReview"
       );
 
     const addReviewFunction = async(from) => {
-        const {productId, rating, comment} = from
+        const {productID, rating, comment} = from
         try {
 
-            const data = await addReview({args:[productId, rating,comment,address  ]})
+            const data = await addReview({args:[productID, rating,comment,address  ]})
 
             console.log("successfully added review", data)
         } catch (error) {
@@ -153,16 +170,16 @@ export const StateContextProvider = ({ children }) => {
     }
 
     //6. likeReview()
-    const { mutateAsync: likeReview, isLoading: likeReviewLoading } = useContractWrite(
+    const { mutateAsync: likeReview } = useContractWrite(
         contract,
         "likeReview"
       );
 
       const likeReviewFunction = async (from) => {
-        const {productId, reviewIndex} = from;
+        const {productID, reviewIndex} = from;
 
         try {
-            const data = await likeReview({args:[productId, reviewIndex,address ]})
+            const data = await likeReview({args:[productID, reviewIndex,address ]})
            console.log("Successfully like the comment", data) 
         } catch (error) {
            console.log("Liking fail", error) 
@@ -173,8 +190,14 @@ export const StateContextProvider = ({ children }) => {
   //7.getAllPropertiesData
   const getPropertiesData = async() => {
     try {
+      // get all market properties
         const properties = await contract.call("getAllProperties");
 
+        // get user balance
+
+        const balance = await signer?.getBalance();
+
+        const userBalance = address ? ethers.utils.formatEther(balance?.toString()) : "";
         const parsedProperties = properties.map((property, i) => ({
             owner: property.owner,
             title:property.propertyTitle,
@@ -295,7 +318,7 @@ export const StateContextProvider = ({ children }) => {
 
   return (
     <StateContext.Provider
-      value={{ address, connect, contract, realEstate, createPropertyFunction, getPropertiesData, updatePropertyFunction, updatePriceFunction, buyPropertyFunction, addReviewFunction, likeReviewFunction, getHighestratedProduct, getProductReviewsFunction, getPropertyFunction,getUserPropertiesFunction, getUserReviewsFunction , totalPropertyFunction, totalReviewsFunction  }}
+      value={{ address, connect, contract,  createPropertyFunction, getPropertiesData, updatePropertyFunction, updatePriceFunction, buyPropertyFunction, addReviewFunction, likeReviewFunction, getHighestratedProduct, getProductReviewsFunction, getPropertyFunction,getUserPropertiesFunction, getUserReviewsFunction , totalPropertyFunction, totalReviewsFunction  }}
     >
       {children}
     </StateContext.Provider>
