@@ -13,7 +13,7 @@ const Live = () => {
                 data-sal="slide-up"
                 data-sal-duration="800"
               >
-                Live Bidding
+                Live Biddings
               </h3>
             </div>
           </div>
