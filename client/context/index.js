@@ -198,6 +198,8 @@ export const StateContextProvider = ({ children }) => {
         const balance = await signer?.getBalance();
 
         const userBalance = address ? ethers.utils.formatEther(balance?.toString()) : "";
+
+        setUserBalance(userBalance);
         const parsedProperties = properties.map((property, i) => ({
             owner: property.owner,
             title:property.propertyTitle,
@@ -220,14 +222,22 @@ export const StateContextProvider = ({ children }) => {
 
   //8. getHighestratedProduct
 
-  const {data: getHighestratedProduct, isLoading:getHighestratedProductLoading} = useContractRead(contract, "getHighestratedProduct");
+  const {data: getHighestratedProduct} = useContractRead(contract, "getHighestratedProduct");
 
   //9. getProductReviews ()
-  const getProductReviewsFunction = (productId) => {
+  const getProductReviewsFunction = async (productId) => {
     try {
-        const {data:getProductReviews, isLoading: getProductReviewsLoading} = useContractRead(contract, "getProductReviews");
+       const getProductReviews = await contract.call("getProductReview", [productId, ]);
 
-        return getProductReviews, getProductReviewsLoading;
+      const parsedReviews = getProductReviews?.map((review, i) => ({
+        reviewer: review.reviewer,
+        likes:review.likes.toNumber(),
+        comment: review.comment,
+        rating: review.rating,
+        productID: review.productId.toNumber(),
+      }));
+
+      return parsedReviews;
     } catch (error) {
         console.log("fail to get property reviews", error)
     }
@@ -235,12 +245,23 @@ export const StateContextProvider = ({ children }) => {
 
   //10. getProperty()
 
-  const getPropertyFunction = (id) => {
+  const getPropertyFunction = async (id) => {
+    const productID = id * 1;
     try {
         
-        const {data: getProperty, isLoading: getPropertyLoading} = useContractRead("getProperty", [id]);
-        return getProperty, getPropertyLoading;
+        const propertyItem = await contract.call("getProperty", [productID]);
 
+        const property = {
+          productID: propertyItem?.[0].toNumber(),
+          owner: propertyItem?.[1],
+          title: propertyItem?.[3],
+          category:propertyItem?.[4],
+          description: propertyItem?.[7],
+          price: ethers.utils.formatEther(propertyItem?.[2].toString()),
+          images:propertyItem?.[5],
+
+        };
+        return property;
     } catch (error) {
         console.log("error while getting single property", error)
     }
@@ -248,11 +269,24 @@ export const StateContextProvider = ({ children }) => {
 
   //11. getUserProperties()
 
-  const getUserPropertiesFunction = () => {
+  const getUserPropertiesFunction = async () => {
     try {
-        const {data: getUserProperties, isLoading: getUserPropertiesLoading} = useContractRead("getUserProperties", [address]);
+        const properties = await contract.call("getUserProperties", [address]);
 
-        return getUserProperties, getUserPropertiesLoading;
+        const parsedProperties = properties.map((property, i) => ({
+          owner: property.owner,
+          title:property.title,
+          description:property.description,
+          category: property.category,
+          price: ethers.utils.formatEther(property.price.toString()),
+          productID: property.productID.toNumber(),
+          reviewers:property.reviewers,
+          reviews: property.reviews,
+          image: property.images,
+          address: property.propertyAddress,
+        }))
+
+        return parsedProperties; 
     } catch (error) {
         console.log("error while getting user property", error)
     }
