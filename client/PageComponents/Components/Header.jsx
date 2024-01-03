@@ -4,10 +4,10 @@ import React from "react";
 import { useStateContext } from "../../context";
 
 const Header = () => {
-
   // CONTRACT DATA
 
-  const {address, disconnect, connect, useBalance} = useStateContext();
+  const { address, disconnect, connect, userBalance, contract } =
+    useStateContext();
 
   return (
     <>
@@ -108,10 +108,7 @@ const Header = () => {
                           </a>
                         </li>
                         <li>
-                          <a
-                            class="live-expo"
-                            href="explore-live-three.html"
-                          >
+                          <a class="live-expo" href="explore-live-three.html">
                             Live With Place Bid
                           </a>
                         </li>
@@ -219,21 +216,31 @@ const Header = () => {
                   </div>
                 </form>
               </div>
+               {/* CONNECT WALLET */}
 
-              <div
+               {
+                address ? (
+                  ""
+                ):(
+                  <div
                 class="setting-option header-btn rbt-site-header"
                 id="rbt-site-header"
               >
                 <div class="icon-box">
-                  <a
-                    id="connectbtn"
+                  <button
+                  onClick={() => connect() }
                     class="btn btn-primary-alta btn-small"
-                    href="connect.html"
+                   
                   >
-                    Wallet connect
-                  </a>
+                    Connect Wallet
+                  </button>
                 </div>
               </div>
+                )
+               }
+
+               {/* END CONNECT WALLET */}
+             
 
               <div class="setting-option rn-icon-list notification-badge">
                 <div class="icon-box">
@@ -243,8 +250,9 @@ const Header = () => {
                   </a>
                 </div>
               </div>
-
-              <div class="header_admin" id="header_admin">
+              {
+                address ? (
+                  <div >
                 <div class="setting-option rn-icon-list user-account">
                   <div class="icon-box">
                     <a href="author.html">
@@ -253,7 +261,7 @@ const Header = () => {
                     <div class="rn-dropdown">
                       <div class="rn-inner-top">
                         <h4 class="title">
-                          <a href="product-details.html">Christopher William</a>
+                          <a href="product-details.html">{address.slice(0, 15)}...</a>
                         </h4>
                         <span>
                           <a href="#">Set Display Name</a>
@@ -274,27 +282,11 @@ const Header = () => {
                               <h6 class="title">
                                 <a href="product-details.html">Balance</a>
                               </h6>
-                              <span class="price">25 ETH</span>
+                              <span class="price">{userBalance?.slice(0, 6)}</span>
                             </div>
                             <div class="button"></div>
                           </li>
-                          <li class="single-product-list">
-                            <div class="thumbnail">
-                              <a href="product-details.html">
-                                <img
-                                  src="/portfolio/portfolio-01.jpg"
-                                  alt="Nft Product Images"
-                                />
-                              </a>
-                            </div>
-                            <div class="content">
-                              <h6 class="title">
-                                <a href="product-details.html">Balance</a>
-                              </h6>
-                              <span class="price">25 ETH</span>
-                            </div>
-                            <div class="button"></div>
-                          </li>
+                          
                         </ul>
                       </div>
                       <div class="add-fund-button mt--20 pb--20">
@@ -313,13 +305,18 @@ const Header = () => {
                           <a href="/connect">Manage funds</a>
                         </li>
                         <li>
-                          <a href="/login">Sign Out</a>
+                          <a href="#" onClick={() => disconnect()}>Disconnect</a>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
+                ) : (
+                  ""
+                )
+              }
+       
 
               <div class="setting-option mobile-menu-bar d-block d-xl-none">
                 <div class="hamberger">
@@ -329,36 +326,7 @@ const Header = () => {
                 </div>
               </div>
 
-              <div id="my_switcher" class="my_switcher setting-option">
-                <ul>
-                  <li>
-                    <a
-                      href="javascript: void(0);"
-                      data-theme="light"
-                      class="setColor light"
-                    >
-                      <img
-                        class="sun-image"
-                        src="/icons/sun-01.svg"
-                        alt="Sun images"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="javascript: void(0);"
-                      data-theme="dark"
-                      class="setColor dark"
-                    >
-                      <img
-                        class="Victor Image"
-                        src="/icons/vector.svg"
-                        alt="Vector Images"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
+             
             </div>
           </div>
         </div>
