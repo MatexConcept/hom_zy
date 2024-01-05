@@ -18,7 +18,7 @@ const ConnectOne = () => {
               <li class="separator">
                 {/* <i class="feather-chevron-right"></i> */}
               </li>
-              <li class="item current">Make your payment easyer</li>
+              <li class="item current">Make your payment easzyy</li>
             </ul>
           </div>
         </div>
