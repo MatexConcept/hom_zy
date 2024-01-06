@@ -1,6 +1,31 @@
 import React from "react";
+import Link from "next/link";
 
-const Collection = () => {
+const Collection = ({housing, rental,  farmhouse,  office}) => {
+
+  const topCollection = [
+    {
+      name: 'Housing',
+      link: "/housing",
+      item: housing,
+    },
+    {
+      name: 'Rental',
+      link: "/rental",
+      item: rental,
+    },
+    {
+      name: 'Farmhouse',
+      link: "/farmhouse",
+      item: farmhouse,
+    },
+    {
+      name: 'Office',
+      link: "/office",
+      item: office,
+    },
+
+  ]
   return (
     <div class="rn-collection-area rn-section-gapTop">
       <div class="container">
@@ -30,44 +55,49 @@ const Collection = () => {
         </div>
 
         <div class="row g-5">
-          {[1, 2, 3, 4].map((el, i) => (
+          {topCollection.map((collection, i) => (
             <div
+            key={i + 1}
               data-sal="slide-up"
               data-sal-delay="150"
               data-sal-duration="800"
               class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12"
             >
-              <a href="product-details.html" class="rn-collection-inner-one">
+            <Link  class="rn-collection-inner-one"
+            href={{pathname: `/category${collection.link}`, query: {name: `${collection.name}`}}}>
+           
                 <div class="collection-wrapper">
                   <div class="collection-big-thumbnail">
                     <img
-                      src="/collection/collection-lg-01.jpg"
+                      src={`/portfolio/portfolio-${i + 15}`}
                       alt="Nft_Profile"
                     />
                   </div>
                   <div class="collenction-small-thumbnail">
                     <img
-                      src="/collection/collection-sm-01.jpg"
+                       src={`/portfolio/portfolio-${i + 16}`}
                       alt="Nft_Profile"
                     />
                     <img
-                      src="/collection/collection-sm-02.jpg"
+                      src={`/portfolio/portfolio-${i + 17}`}
                       alt="Nft_Profile"
                     />
                     <img
-                      src="/collection/collection-sm-03.jpg"
+                       src={`/portfolio/portfolio-${i + 11}`}
                       alt="Nft_Profile"
                     />
                   </div>
                   <div class="collection-profile">
-                    <img src="/client/client-15.png" alt="Nft_Profile" />
+                    <img src={`/client/client-${i + 1}.png`} alt="Nft_Profile" />
                   </div>
                   <div class="collection-deg">
-                    <h6 class="title">Cubic Trad</h6>
-                    <span class="items">27 Items</span>
+                    <h6 class="title">{collection.name}</h6>
+                    <span class="items">{collection.item}</span>
                   </div>
                 </div>
-              </a>
+            
+            </Link>
+           
             </div>
           ))}
         </div>
