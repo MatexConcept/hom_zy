@@ -69,21 +69,21 @@ const Collection = ({housing, rental,  farmhouse,  office}) => {
                 <div class="collection-wrapper">
                   <div class="collection-big-thumbnail">
                     <img
-                      src={`/portfolio/portfolio-${i + 15}`}
+                      src={`/portfolio/portfolio-${i + 15}.jpg`}
                       alt="Nft_Profile"
                     />
                   </div>
                   <div class="collenction-small-thumbnail">
                     <img
-                       src={`/portfolio/portfolio-${i + 16}`}
+                       src={`/portfolio/portfolio-${i + 16}.jpg`}
                       alt="Nft_Profile"
                     />
                     <img
-                      src={`/portfolio/portfolio-${i + 17}`}
+                      src={`/portfolio/portfolio-${i + 17}.jpg`}
                       alt="Nft_Profile"
                     />
                     <img
-                       src={`/portfolio/portfolio-${i + 11}`}
+                       src={`/portfolio/portfolio-${i + 11}.jpg`}
                       alt="Nft_Profile"
                     />
                   </div>
