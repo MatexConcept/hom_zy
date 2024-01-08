@@ -7,6 +7,7 @@ import TopSeller from "./TopSeller";
 import Collection from "./Collection";
 import Footer from "./Footer";
 import Copyright from "./Copyright";
+import Loader from "./Loader/Loader";
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   Collection,
   Footer,
   Copyright,
+  Loader
 };
