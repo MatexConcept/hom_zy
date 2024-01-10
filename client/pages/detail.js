@@ -125,7 +125,18 @@ const detail = () => {
   return <div className="template-color-1 nft-body-connect">
   <Header/>
   <DetailOne/>
-  <DetailTwo/>
+
+  <DetailTwo
+      property = {property}
+    parsedReviews = {parsedReviews}
+    setLikeReviews = {setLikeReviews}
+    likeReviews = {likeReviews}
+    likeReviewCall = {likeReviewCall}
+    buyingProperty = {buyingProperty}
+    address = {address}
+    isLoading = {isLoading}
+    buyLoading = {buyLoading}
+  />
   <DetailThree/>
   <DetailFour/>
   <DetailFive/>

@@ -1,6 +1,20 @@
 import React from "react";
+import Countdown from "react-countdown";
+import { Loader } from "../Components";
 
-const DetailTwo = () => {
+const DetailTwo = ({property,
+  parsedReviews,
+  setLikeReviews,
+  likeReviewCall,
+    buyingProperty ,
+    address ,
+    isLoading ,
+    buyLoading,
+    likeReviews
+
+}) => {
+
+    const timeComment = new Date(new Date() - Math.random() * 1e12);
   return (
     <div class="product-details-area rn-section-gapTop">
       <div class="container">
@@ -75,10 +89,17 @@ const DetailTwo = () => {
                     aria-labelledby="v-pills-home-tab"
                   >
                     <div class="rn-pd-thumbnail">
+                    {
+                     isLoading ? (
+                      <Loader/>
+                     ) : (
                       <img
-                        src="/portfolio/portfolio-01.jpg"
+                        src={property?.images}
                         alt="Nft_Profile"
                       />
+                     )
+                    }
+                     
                     </div>
                   </div>
                   <div
@@ -115,10 +136,10 @@ const DetailTwo = () => {
           <div class="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
             <div class="rn-pd-content-area">
               <div class="pd-title-area">
-                <h4 class="title">The Amazing Game</h4>
+                <h4 class="title">{property?.title?.slice(0, 15)}</h4>
                 <div class="pd-react-area">
                   <div class="heart-count">
-                    <span>33</span>
+                    <span>{parsedReviews?.length}</span>
                   </div>
                   <div class="count">
                     <div class="share-btn share-btn-activation dropdown">
@@ -153,27 +174,30 @@ const DetailTwo = () => {
                         >
                           Share
                         </button>
-                        <button
+                        {
+                          property?.owner == address && (
+                            <button
                           type="button"
                           class="btn-setting-text report-text"
                           data-bs-toggle="modal"
                           data-bs-target="#reportModal"
                         >
-                          Report
+                          Update Price
                         </button>
+                          )
+                        }
+                       
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <span class="bid">
-                Height bid <span class="price">0.11wETH</span>
-              </span>
-              <h6 class="title-name">#22 Portal , Info bellow</h6>
+          
+              <h6 class="title-name">  #{property?.productID} Portal , Info bellow</h6>
               <div class="catagory-collection">
                 <div class="catagory">
                   <span>
-                    Catagory <span class="color-body">10% royalties</span>
+                    Catagory <span class="color-body">{property?.category}</span>
                   </span>
                   <div class="top-seller-inner-one">
                     <div class="top-seller-wrapper">
@@ -184,7 +208,7 @@ const DetailTwo = () => {
                       </div>
                       <div class="top-seller-content">
                         <a href="#">
-                          <h6 class="name">Brodband</h6>
+                          <h6 class="name">{property?.owner.slice(0, 25)} ...</h6>
                         </a>
                       </div>
                     </div>
@@ -201,16 +225,14 @@ const DetailTwo = () => {
                       </div>
                       <div class="top-seller-content">
                         <a href="#">
-                          <h6 class="name">Brodband</h6>
+                          <h6 class="name">{property?.category}</h6>
                         </a>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <a class="btn btn-primary-alta" href="#">
-                Unlockable content included
-              </a>
+              
               <div class="rn-bid-details">
                 <div class="tab-wrapper-one">
                   <nav class="tab-button-one">
@@ -225,7 +247,7 @@ const DetailTwo = () => {
                         aria-controls="nav-home"
                         aria-selected="false"
                       >
-                        Bids
+                        Comments
                       </button>
                       <button
                         class="nav-link active"
@@ -249,7 +271,7 @@ const DetailTwo = () => {
                         aria-controls="nav-contact"
                         aria-selected="false"
                       >
-                        History
+                        Interested Users
                       </button>
                     </div>
                   </nav>
@@ -260,119 +282,60 @@ const DetailTwo = () => {
                       role="tabpanel"
                       aria-labelledby="nav-home-tab"
                     >
-                      <div class="top-seller-inner-one">
+                    {
+                      parsedReviews?.map((review, i ) => {
+                        <div 
+                        key={i + 1}
+                        onClick={() => setLikeReviews({...likeReviews, reviewIndex : i })}
+                        class="top-seller-inner-one">
                         <div class="top-seller-wrapper">
                           <div class="thumbnail">
                             <a href="#">
                               <img
-                                src="/client/client-3.png"
-                                alt="Nft_Profile"
+                                src={`/client/client-${i + 1 }.png"
+                                alt="Nft_Profile`}
                               />
                             </a>
                           </div>
                           <div class="top-seller-content">
                             <span>
-                              0.11wETH by <a href="#">Allen Waltker</a>
+                             {review?.reviewer.slice(0, 35)}...
                             </span>
-                            <span class="count-number">1 hours ago</span>
+                            <div class="react-area">
+                  <svg
+                    viewBox="0 0 17 16"
+                    fill="none"
+                    width="16"
+                    height="16"
+                    class="sc-bdnxRM sc-hKFxyN kBvkOu"
+                  >
+                    <path
+                      d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    ></path>
+                  </svg>
+                  <span class="number">{i + 1 + 0.5} hours ago</span>
+                  <span className="count-number">
+                    {review?.comment.slice(0, 70)}
+                    {review?.comment.length >= 93 ? "..." : ""}
+                  </span>
+                </div>
                           </div>
                         </div>
                       </div>
+                      })
+                    }
+                   
 
-                      <div class="top-seller-inner-one">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-4.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.09wETH by <a href="#">Joe Biden</a>
-                            </span>
-                            <span class="count-number">1.30 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div class="top-seller-inner-one">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-5.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.07wETH by <a href="#">Sonial mridha</a>
-                            </span>
-                            <span class="count-number">1.35 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
+                     
 
-                      <div class="top-seller-inner-one">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-6.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.07wETH by <a href="#">Tribute Dhusra</a>
-                            </span>
-                            <span class="count-number">1.55 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
+                  
 
-                      <div class="top-seller-inner-one">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-7.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.07wETH by <a href="#">Sonia Sobnom</a>
-                            </span>
-                            <span class="count-number">2 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
+                    
 
-                      <div class="top-seller-inner-one">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-8.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.02wETH by <a href="#">Sadia Rummon</a>
-                            </span>
-                            <span class="count-number">2.5 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
+                    
                     </div>
                     <div
                       class="tab-pane fade show active"
@@ -394,62 +357,58 @@ const DetailTwo = () => {
                             </div>
                             <div class="top-seller-content">
                               <a href="#">
-                                <h6 class="name">Brodband</h6>
+                                <h6 class="name">{property?.owner.slice(0, 20)}...</h6>
                               </a>
                             </div>
                           </div>
                         </div>
 
                         <div class="rn-pd-sm-property-wrapper">
-                          <h6 class="pd-property-title">Property</h6>
-                          <div class="property-wrapper">
+                         
+                         
                             <div class="pd-property-inner">
-                              <span class="color-body type">HYPE TYPE</span>
+                            <h6 class="pd-property-title">Title</h6>
+                              
                               <span class="color-white value">
-                                CALM AF (STILL)
+                             {property?.title}
                               </span>
                             </div>
 
                             <div class="pd-property-inner">
-                              <span class="color-body type">BASTARDNESS</span>
+                            <h6 class="pd-property-title">Description</h6>
                               <span class="color-white value">
-                                C00LIO BASTARD
+                              {property?.description}
                               </span>
                             </div>
 
                             <div class="pd-property-inner">
-                              <span class="color-body type">TYPE</span>
-                              <span class="color-white value">APE</span>
+                            <h6 class="pd-property-title">Address</h6>
+                              <span class="color-white value">
+                                {property?.address}
+                              </span>
                             </div>
 
                             <div class="pd-property-inner">
-                              <span class="color-body type">ASTARDNESS</span>
-                              <span class="color-white value">BASTARD</span>
+                            <h6 class="pd-property-title">
+                              Price: {property?.price} MATIC
+                            </h6>
                             </div>
 
                             <div class="pd-property-inner">
-                              <span class="color-body type">BAD HABIT(S)</span>
-                              <span class="color-white value">PIPE</span>
+                            <h6 class="pd-property-title">
+                              Property ID : {property?.productID}
+                            </h6>
                             </div>
 
                             <div class="pd-property-inner">
-                              <span class="color-body type">BID</span>
-                              <span class="color-white value">BPEYti</span>
+                            <h6 class="pd-property-title">{property?.category}</h6>
                             </div>
 
-                            <div class="pd-property-inner">
-                              <span class="color-body type">ASTRAGENAKAR</span>
-                              <span class="color-white value">BASTARD</span>
-                            </div>
-
-                            <div class="pd-property-inner">
-                              <span class="color-body type">CITY</span>
-                              <span class="color-white value">TOKYO</span>
-                            </div>
-                          </div>
+                          
+                          
                         </div>
 
-                        <div class="rn-pd-sm-property-wrapper">
+                        {/* <div class="rn-pd-sm-property-wrapper">
                           <h6 class="pd-property-title">Catagory</h6>
                           <div class="catagory-wrapper">
                             <div class="pd-property-inner">
@@ -482,7 +441,7 @@ const DetailTwo = () => {
                               <span class="color-white value">TOKYO</span>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     <div
@@ -491,108 +450,41 @@ const DetailTwo = () => {
                       role="tabpanel"
                       aria-labelledby="nav-contact-tab"
                     >
-                      <div class="top-seller-inner-one">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-3.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.11wETH by<a href="#">Allen Waltker</a>
-                            </span>
-                            <span class="count-number">1 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div class="top-seller-inner-one mt--20">
+                    {
+                      parsedReviews?.map((interest, i) => (
+                        <div class="top-seller-inner-one">
                         <div class="top-seller-wrapper">
                           <div class="thumbnail">
                             <a href="#">
                               <img
-                                src="/client/client-2.png"
-                                alt="Nft_Profile"
+                                src={`/client/client-${i + 1}.png"
+                                alt="Nft_Profile`}
                               />
                             </a>
                           </div>
                           <div class="top-seller-content">
-                            <span>
-                              0.11wETH by<a href="#">Allen Waltker</a>
-                            </span>
-                            <span class="count-number">1 hours ago</span>
+                          
+                            <span class="count-number">{interest?.reviewer.slice(0, 40)}...</span>
+                            <span>{i + 1} hours ago</span>
                           </div>
                         </div>
                       </div>
+                      ))
+                    }
+                 
 
-                      <div class="top-seller-inner-one mt--20">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-4.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.11wETH by<a href="#">Allen Waltker</a>
-                            </span>
-                            <span class="count-number">1 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="top-seller-inner-one mt--20">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-5.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.11wETH by<a href="#">Allen Waltker</a>
-                            </span>
-                            <span class="count-number">1 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="top-seller-inner-one mt--20">
-                        <div class="top-seller-wrapper">
-                          <div class="thumbnail">
-                            <a href="#">
-                              <img
-                                src="/client/client-8.png"
-                                alt="Nft_Profile"
-                              />
-                            </a>
-                          </div>
-                          <div class="top-seller-content">
-                            <span>
-                              0.11wETH by<a href="#">Allen Waltker</a>
-                            </span>
-                            <span class="count-number">1 hours ago</span>
-                          </div>
-                        </div>
-                      </div>
+                  
                     </div>
                   </div>
                 </div>
                 <div class="place-bet-area">
                   <div class="rn-bet-create">
                     <div class="bid-list winning-bid">
-                      <h6 class="title">Winning bit</h6>
-                      <div class="top-seller-inner-one">
+                      <h6 class="title">Recent Comment</h6>
+                      {
+                        parsedReviews?.reverse().map((recentReview, i) => (
+                          <div class="top-seller-inner-one">
                         <div class="top-seller-wrapper">
                           <div class="thumbnail">
                             <a href="#">
@@ -604,12 +496,17 @@ const DetailTwo = () => {
                           </div>
                           <div class="top-seller-content">
                             <span class="heighest-bid">
-                              Heighest bid <a href="#">Atif aslam</a>
+                             {recentReview?.reviewer.slice(0, 20)}...
                             </span>
-                            <span class="count-number">0.115wETH</span>
+                            <span class="count-number">
+                              {recentReview?.comment.length >= 50 ? `${recentReview?.comment.slice(0,60)}....` : recentReview?.comment}
+                            </span>
                           </div>
                         </div>
                       </div>
+                        )).slice(0, 1)
+                      }
+                    
                     </div>
                     <div class="bid-list left-bid">
                       <h6 class="title">Auction has ended</h6>
