@@ -35,7 +35,7 @@ const DetailEight = () => {
 
                 <div class="bid-content-mid">
                   <div class="bid-content-left">
-                    <span>Your Balance</span>
+                    <span>Your Balanc</span>
                     <span>Service fee</span>
                     <span>Total bid amount</span>
                   </div>

@@ -85,7 +85,7 @@ const DetailFour = () => {
                       data-bs-toggle="modal"
                       data-bs-target="#reportModal"
                     >
-                      Report
+                      Reports
                     </button>
                   </div>
                 </div>
