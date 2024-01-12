@@ -303,6 +303,7 @@ const DetailTwo = ({property,
                             </span>
                             <div class="react-area">
                   <svg
+                  onClick={() => likeReviewCall()}
                     viewBox="0 0 17 16"
                     fill="none"
                     width="16"
@@ -390,7 +391,7 @@ const DetailTwo = ({property,
 
                             <div class="pd-property-inner">
                             <h6 class="pd-property-title">
-                              Price: {property?.price} MATIC
+                              Price 18 decimal point: {property?.price} MATIC
                             </h6>
                             </div>
 
@@ -408,40 +409,7 @@ const DetailTwo = ({property,
                           
                         </div>
 
-                        {/* <div class="rn-pd-sm-property-wrapper">
-                          <h6 class="pd-property-title">Catagory</h6>
-                          <div class="catagory-wrapper">
-                            <div class="pd-property-inner">
-                              <span class="color-body type">ZARY</span>
-                              <span class="color-white value">APP</span>
-                            </div>
-
-                            <div class="pd-property-inner">
-                              <span class="color-body type">SOMALIAN</span>
-                              <span class="color-white value">TRIBUTE</span>
-                            </div>
-
-                            <div class="pd-property-inner">
-                              <span class="color-body type">TUNA</span>
-                              <span class="color-white value">PIPE</span>
-                            </div>
-
-                            <div class="pd-property-inner">
-                              <span class="color-body type">BID</span>
-                              <span class="color-white value">BPEYti</span>
-                            </div>
-
-                            <div class="pd-property-inner">
-                              <span class="color-body type">ASTRAGENAKAR</span>
-                              <span class="color-white value">BASTARD</span>
-                            </div>
-
-                            <div class="pd-property-inner">
-                              <span class="color-body type">CITY</span>
-                              <span class="color-white value">TOKYO</span>
-                            </div>
-                          </div>
-                        </div> */}
+                    
                       </div>
                     </div>
                     <div
@@ -509,23 +477,22 @@ const DetailTwo = ({property,
                     
                     </div>
                     <div class="bid-list left-bid">
-                      <h6 class="title">Auction has ended</h6>
+                      <h6 class="title">Property Stats</h6>
                       <div class=" mt--15" data-date="2025-12-09">
                         <div class="countdown-container days">
-                          <span class="countdown-value">87</span>
-                          <span class="countdown-heading">D's</span>
+                          <span class="countdown-value">Price : {property?.price} MATIC</span>
+                          {/* <span class="countdown-heading">{property?.price} MATIC</span> */}
                         </div>
                         <div class="countdown-container hours">
-                          <span class="countdown-value">23</span>
-                          <span class="countdown-heading">H's</span>
+                          <span class="countdown-value">Comments:</span>
+                          <span class="countdown-heading">{parsedReviews?.length}</span>
                         </div>
                         <div class="countdown-container minutes">
-                          <span class="countdown-value">38</span>
-                          <span class="countdown-heading">Min's</span>
+                          <span class="countdown-value">Interest:</span>
+                          <span class="countdown-heading">{parsedReviews?.length}</span>
                         </div>
                         <div class="countdown-container seconds">
-                          <span class="countdown-value">27</span>
-                          <span class="countdown-heading">Sec</span>
+                         Time Left: <Countdown date={Date.now() + 374343992323}/>
                         </div>
                       </div>
                     </div>
@@ -534,11 +501,28 @@ const DetailTwo = ({property,
                   <button
                     type="button"
                     class="btn btn-primary-alta mt--30"
-                    data-bs-toggle="modal"
-                    data-bs-target="#placebidModal"
+                  onClick={() => buyingProperty()}
                   >
-                    Place a Bid
+
+                  {
+                    buyLoading ? (
+                      <Loader/>
+                    ) : (
+                      `${property?.price} MATIC Buy Property`
+                    )
+                  }
                   </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-primary-alta mt--30"
+                    data-bs-toggle = "modal"
+                    data-bs-target = "#placebidModal"
+                  >
+
+                    Add Comment
+                  </button>
+                  
                 </div>
               </div>
             </div>
