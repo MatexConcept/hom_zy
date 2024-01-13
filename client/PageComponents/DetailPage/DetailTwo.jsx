@@ -3,14 +3,15 @@ import Countdown from "react-countdown";
 import { Loader } from "../Components";
 
 const DetailTwo = ({property,
-  parsedReviews,
+  
   setLikeReviews,
   likeReviewCall,
     buyingProperty ,
     address ,
     isLoading ,
     buyLoading,
-    likeReviews
+    likeReviews,
+    parsedReviews,
 
 }) => {
 

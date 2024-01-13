@@ -45,7 +45,7 @@ const DetailFour = () => {
                     <img src="/client/client-3.png" alt="Nft_Profile" />
                   </a>
                   <a class="more-author-text" href="#">
-                    9+ Place Bit.
+                    10+ Place Bit.
                   </a>
                 </div>
                 <div class="share-btn share-btn-activation dropdown">
