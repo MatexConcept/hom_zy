@@ -41,7 +41,7 @@ const EditProfileTwo = () => {
                   aria-selected="false"
                 >
                   {/* <i class="feather-user"></i> */}
-                  Personal Information
+                  Personal Informations
                 </button>
                 <button
                   class="nav-link"
@@ -68,7 +68,7 @@ const EditProfileTwo = () => {
                   aria-selected="false"
                 >
                   {/* <i class="feather-bell"></i> */}
-                  Notification Setting
+                  Notification Settings
                 </button>
               </div>
             </nav>
