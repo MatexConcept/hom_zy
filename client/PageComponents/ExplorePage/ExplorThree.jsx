@@ -28,7 +28,7 @@ const ExplorThree = () => {
                   <span class="icon">
                     {/* <i data-feather="facebook"></i> */}
                   </span>
-                  <span class="text">facebook</span>
+                  <span class="text">fb</span>
                 </a>
               </li>
               <li>

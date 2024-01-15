@@ -7,7 +7,7 @@ const ExplorTwo = () => {
         <div class="row mb--30 align-items-center">
           <div class="col-lg-4">
             <div class="section-title">
-              <h3 class="title mb--0">Explore Product</h3>
+              <h3 class="title mb--0">Explore Products</h3>
             </div>
           </div>
           <div class="col-lg-8">
