@@ -27,7 +27,7 @@ const ForgetFour = () => {
               marketplace
             </p>
             <div class="report-form-box">
-              <h6 class="title">Message</h6>
+              <h6 class="title">Messages</h6>
               <textarea name="message" placeholder="Write issues"></textarea>
               <div class="report-button">
                 <button type="button" class="btn btn-primary mr--10 w-auto">
