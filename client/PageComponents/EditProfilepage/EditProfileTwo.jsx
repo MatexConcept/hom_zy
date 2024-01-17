@@ -68,7 +68,7 @@ const EditProfileTwo = () => {
                   aria-selected="false"
                 >
                   {/* <i class="feather-bell"></i> */}
-                  Notification Settings
+                  Notifications Setting
                 </button>
               </div>
             </nav>
@@ -88,7 +88,7 @@ const EditProfileTwo = () => {
                   <div class="profile-change row g-5">
                     <div class="profile-left col-lg-4">
                       <div class="profile-image mb--30">
-                        <h6 class="title">Change Your Profile Picture</h6>
+                        <h6 class="title">Change Your Profile Pictures</h6>
                         <img
                           id="rbtinput1"
                           src="/profile/profile-01.jpg"

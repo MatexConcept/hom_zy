@@ -7,7 +7,7 @@ const ExplorOne = () => {
         <div class="row align-items-center">
           <div class="col-lg-6 col-md-6 col-12">
             <h5 class="title text-center text-md-start">
-              Explore Style Isotop
+              Explore Style Isoto
             </h5>
           </div>
           <div class="col-lg-6 col-md-6 col-12">
@@ -18,7 +18,7 @@ const ExplorOne = () => {
               <li class="separator">
                 <i class="feather-chevron-right"></i>
               </li>
-              <li class="item current">Explore With Isotop Filters</li>
+              <li class="item current">Explore With Isotop Filter</li>
             </ul>
           </div>
         </div>

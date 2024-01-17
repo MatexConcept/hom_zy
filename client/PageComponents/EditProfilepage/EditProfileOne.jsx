@@ -6,12 +6,12 @@ const EditProfileOne = () => {
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6 col-md-6 col-12">
-            <h5 class="title text-center text-md-start">Edit Profile</h5>
+            <h5 class="title text-center text-md-start">Edits Profile</h5>
           </div>
           <div class="col-lg-6 col-md-6 col-12">
             <ul class="breadcrumb-list">
               <li class="item">
-                <a href="index.html">Home</a>
+                <a href="index.html">Hom</a>
               </li>
               <li class="separator">
                 <i class="feather-chevron-right"></i>
