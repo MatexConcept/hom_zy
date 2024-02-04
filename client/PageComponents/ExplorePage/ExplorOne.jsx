@@ -18,7 +18,7 @@ const ExplorOne = () => {
               <li class="separator">
                 <i class="feather-chevron-right"></i>
               </li>
-              <li class="item current">Explore With Isotop Filter</li>
+              <li class="item current">Explore With Isotop Filters</li>
             </ul>
           </div>
         </div>

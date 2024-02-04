@@ -44,7 +44,7 @@ const ExplorThree = () => {
                   <span class="icon">
                     {/* <i data-feather="linkedin"></i> */}
                   </span>
-                  <span class="text">linkedin</span>
+                  <span class="text">linkedi</span>
                 </a>
               </li>
               <li>
@@ -52,7 +52,7 @@ const ExplorThree = () => {
                   <span class="icon">
                     {/* <i data-feather="instagram"></i> */}
                   </span>
-                  <span class="text">instagram</span>
+                  <span class="text">instagrams</span>
                 </a>
               </li>
               <li>
